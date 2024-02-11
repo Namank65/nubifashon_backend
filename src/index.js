@@ -12,7 +12,7 @@ app.use(cors());
 
 // dataBase connection with mongoDb
 
-mongoose.connect("mongodb+srv://namankumar62039:Namankumar62039%K@cluster0.m8xmhmh.mongodb.net/e-commers")
+mongoose.connect("mongodb+srv://namankumar62039:naman123@cluster0.favsdhu.mongodb.net/nubi-fashion");
 
 // API creation
 
