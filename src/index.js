@@ -20,6 +20,17 @@ app.get("/", (req, res) => {
     res.send("Express app is Running")
 })
 
+// image storage engine
+
+const storage = multer.diskStorage({
+    destination: "./upload/images",
+    filename: (req, file, cb) => {
+        return cb(null, `${file.fieldname}_${Date.now}${path.extname(file.originalname)}`)
+    }
+})
+
+const upload = multer({storage:storage});  // will continue from here after a short vacation
+
 app.listen(PORT, (error) => {
     if (!error) {
         console.log(`Server Running On Port: ${PORT}`)
