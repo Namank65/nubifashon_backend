@@ -29,13 +29,13 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({storage:storage});  // will continue from here after a short vacation
+const upload = multer({ storage: storage });  // will continue from here after a short vacation
 
 app.listen(PORT, (error) => {
     if (!error) {
         console.log(`Server Running On Port: ${PORT}`)
     }
-    else{
+    else {
         console.log(`Error: ${error}`)
     }
 })
