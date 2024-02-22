@@ -29,7 +29,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({ storage: storage });
+const upload = multer({ storage, });
 app.get("/storage", (req,res) => {
     res.send("storage is getting updated")
 })
