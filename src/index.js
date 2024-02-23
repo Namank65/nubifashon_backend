@@ -29,10 +29,7 @@ const storage = multer.diskStorage({
     }
 })
 
-const upload = multer({ storage, });
-app.get("/storage", (req,res) => {
-    res.send("storage is getting updated")
-})
+const upload = multer({ storage });
 
 app.listen(PORT, (error) => {
     if (!error) {
