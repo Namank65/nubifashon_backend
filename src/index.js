@@ -1,10 +1,19 @@
-const PORT = 4000;
-const express = require("express");
-const mongoose = require("mongoose")
-const jwt = require("jsonwebtoken");
-const multer = require("multer");
-const path = require("path");
-const cors = require("cors");
+const PORT = process.env.PORT;
+// const express = require("express");
+// const jwt = require("jsonwebtoken");
+// const multer = require("multer");
+// const path = require("path");
+// const cors = require("cors");
+import multer from "multer";
+import cors from "cors";
+import express from "express"
+import ConnectDB from "./DB/index.js";
+import dotenv from "dotenv";
+
+dotenv.config({
+    path: "./env"
+})
+
 const app = express();
 
 app.use(express.json());
@@ -12,7 +21,9 @@ app.use(cors());
 
 // dataBase connection with mongoDb
 
-mongoose.connect("mongodb+srv://namankumar62039:naman123@cluster0.favsdhu.mongodb.net/nubi-fashion");
+// mongoose.connect("mongodb+srv://namankumar62039:naman123@cluster0.favsdhu.mongodb.net/nubi-fashion");
+
+ConnectDB();
 
 // API creation
 
