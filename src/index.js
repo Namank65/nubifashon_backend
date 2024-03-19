@@ -18,7 +18,7 @@ mongoose.connect("mongodb+srv://namankumar62039:naman123@cluster0.favsdhu.mongod
 
 app.get("/", (req, res) => {
     res.send("Express app is Running")
-})
+});
 
 // image storage engine
 
@@ -27,18 +27,18 @@ const storage = multer.diskStorage({
     filename: (req, file, cb) => {
         return cb(null, `${file.fieldname}_${Date.now}${path.extname(file.originalname)}`)
     }
-})
+});
 
 const upload = multer({ storage });
 
-app.use("/images", express.static('upload/images'))
+app.use("/images", express.static('upload/images'));
 
-app.post("/upload", upload.single('product'), (req,res) => {
+app.post("/upload", upload.single('product'), (req, res) => {
     res.json({
         success: 1,
         image_url: `http://localhost:${port}/images${req.file.filename}`
     })
-})
+});
 
 app.listen(PORT, (error) => {
     if (!error) {
@@ -47,4 +47,4 @@ app.listen(PORT, (error) => {
     else {
         console.log(`Error: ${error}`)
     }
-})
+});
