@@ -1,6 +1,4 @@
-// const jwt = require("jsonwebtoken");
 // const path = require("path");
-// import multer from "multer";
 import ConnectDB from "./DB/index.js";
 import dotenv from "dotenv";
 import { app } from "./app.js";
@@ -20,6 +18,16 @@ ConnectDB()
 .catch((error) => {
     console.log(`MongoDB Connection Failed !! ${error}`)
 })
+
+
+
+
+
+
+
+
+
+
 
 // API creation
 
