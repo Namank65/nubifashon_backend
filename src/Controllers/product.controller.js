@@ -4,17 +4,18 @@ import uploadOnCloudinary from "../utils/cloudinary.js";
 import { Product } from "../Models/Product.model.js";
 import apiResponse from "../utils/apiResponce.js"
 
-const productUpload = asyncHandler(async(req, res) => {
+const productUpload = asyncHandler(async (req, res) => {
 
-    const productLocalPath = req.file?.product[0]?.path;
+    console.log(req.file.path)
+    const productLocalPath = req.file?.path;
 
-    if(!productLocalPath){
+    if (!productLocalPath) {
         throw new apiError(401, "Product Image Is Required")
     }
 
     const productImage = await uploadOnCloudinary(productLocalPath);
 
-    if(!productImage) {
+    if (!productImage) {
         throw apiError(402, "Product Is Required")
     }
 
@@ -24,7 +25,7 @@ const productUpload = asyncHandler(async(req, res) => {
 
     const createdProduct = await Product.findById(product._id);
 
-    if(!createdProduct){
+    if (!createdProduct) {
         throw new apiError(500, "Somthing Went Wrond While Createting The Product")
     }
 

@@ -5,7 +5,7 @@ import { upload } from "../MiddleWare/Multer.middleWare.js";
 const router = Router();
 
 router.route("/product").post(
-    upload.single('product'),
+    upload.single('images'),
     productUpload)
 
 export default router;
