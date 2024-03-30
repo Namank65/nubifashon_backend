@@ -6,7 +6,7 @@ import apiResponse from "../utils/apiResponce.js"
 
 const productUpload = asyncHandler(async(req, res) => {
 
-    const productLocalPath = res.file?.product[0]?.path;
+    const productLocalPath = req.file?.product[0]?.path;
 
     if(!productLocalPath){
         throw new apiError(401, "Product Image Is Required")
