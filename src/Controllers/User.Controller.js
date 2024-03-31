@@ -3,6 +3,16 @@ import asyncHandeler from "../utils/asyncHandler.js"
 import { User } from "../Models/User.model.js";
 import apiResponse from "../utils/apiResponce.js";
 
+
+const generateAccessAndRefreshTokens = async (userId) => {
+    try {
+        ""
+    } catch (error) {
+        throw new apiError(500, "Something Went Wrong While Generating The Access And Refresh Tokens")
+    }
+}
+
+
 const RegisterUser = asyncHandeler(async (req, res) => {
     
     const {userName, email, password} = req.body;
@@ -43,5 +53,31 @@ const RegisterUser = asyncHandeler(async (req, res) => {
     )
 })
 
-export default RegisterUser;
+const loginUser = asyncHandeler(async(req, res) => {
+    const {userName, email, password} = req.body;
+
+    if (!(userName || email)) {
+        throw new apiError(400, "User Name Or Email Is Required.")
+    }
+
+    const user = await User.findOne({
+        $or: [{userName}, {email}]
+    })
+
+    if(!user) {
+        throw new apiError(404, "User Name Or Email Dose Not Existed.")
+    }
+
+    const isPasswordValid = await user.isPasswordCorrect(password);
+
+    if(!isPasswordValid) {
+        throw new apiError(401, "Invalid User Cridentials.")
+    }
+
+})
+
+export  {
+    RegisterUser,
+    loginUser
+};
 
