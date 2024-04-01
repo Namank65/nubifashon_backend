@@ -2,11 +2,19 @@ import apiError from "../utils/apiError.js";
 import asyncHandeler from "../utils/asyncHandler.js"
 import { User } from "../Models/User.model.js";
 import apiResponse from "../utils/apiResponce.js";
+import cookiesOptions from "../Constants.js"
 
 
 const generateAccessAndRefreshTokens = async (userId) => {
     try {
-        ""
+        const user = await User.findById(userId)
+        const accessToken = user.generateAccessToken()
+        const refreshToken = user.generateRefreshToken()
+
+        user.refreshToken = refreshToken
+        await user.save({validateBeforeSave: false})
+
+        return {accessToken, refreshToken}
     } catch (error) {
         throw new apiError(500, "Something Went Wrong While Generating The Access And Refresh Tokens")
     }
@@ -74,6 +82,23 @@ const loginUser = asyncHandeler(async(req, res) => {
         throw new apiError(401, "Invalid User Cridentials.")
     }
 
+    const {accessToken, refreshToken} = await generateAccessAndRefreshTokens(user._id)
+
+    const loggedInUser = await User.findById(user._id).select(" -password -refreshToken")
+
+    return res
+    .status(201)
+    .cookie("accessToken", accessToken, cookiesOptions)
+    .cookie("refreshToken", refreshToken, cookiesOptions)
+    .json(
+        new apiResponse(
+            200,
+            {
+                user: loggedInUser, accessToken, refreshToken
+            },
+            "User Logged In Successfully"
+        )
+    )
 })
 
 export  {
