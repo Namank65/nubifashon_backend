@@ -2,7 +2,7 @@ import apiError from "../utils/apiError.js";
 import asyncHandeler from "../utils/asyncHandler.js"
 import { User } from "../Models/User.model.js";
 import apiResponse from "../utils/apiResponce.js";
-import cookiesOptions from "../Constants.js"
+import {cookiesOptions} from "../Constants.js"
 
 
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -19,7 +19,6 @@ const generateAccessAndRefreshTokens = async (userId) => {
         throw new apiError(500, "Something Went Wrong While Generating The Access And Refresh Tokens")
     }
 }
-
 
 const RegisterUser = asyncHandeler(async (req, res) => {
     
@@ -64,7 +63,7 @@ const RegisterUser = asyncHandeler(async (req, res) => {
 const loginUser = asyncHandeler(async(req, res) => {
     const {userName, email, password} = req.body;
 
-    if (!(userName || email)) {
+    if (!userName && !email) {
         throw new apiError(400, "User Name Or Email Is Required.")
     }
 
@@ -76,7 +75,7 @@ const loginUser = asyncHandeler(async(req, res) => {
         throw new apiError(404, "User Name Or Email Dose Not Existed.")
     }
 
-    const isPasswordValid = await user.isPasswordCorrect(password);
+    const isPasswordValid =  user.isPasswordCorrect(password);
 
     if(!isPasswordValid) {
         throw new apiError(401, "Invalid User Cridentials.")
@@ -127,4 +126,3 @@ export  {
     loginUser,
     logOutUser
 };
-
