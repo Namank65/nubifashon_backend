@@ -8,6 +8,6 @@ router.route("/register").post(RegisterUser)
 router.route("/login").post(loginUser)
 
 // Secured routes
-router.route("logout").post(verifyJwt, logOutUser)
+router.route("/logout").post(verifyJwt, logOutUser)
 
 export default router;

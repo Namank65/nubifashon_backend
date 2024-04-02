@@ -3,6 +3,7 @@ import asyncHandeler from "../utils/asyncHandler.js"
 import { User } from "../Models/User.model.js";
 import apiResponse from "../utils/apiResponce.js";
 import {cookiesOptions} from "../Constants.js"
+import jwt from "jsonwebtoken";
 
 
 const generateAccessAndRefreshTokens = async (userId) => {
@@ -119,6 +120,27 @@ const logOutUser = asyncHandeler(async(req, res) => {
     .clearCookie("accessToken", cookiesOptions)
     .clearCookie("refreshToken", cookiesOptions)
     .json(new apiResponse(200, {}, "User Logged Out Successfully"))
+})
+
+const refreshAccessToken = asyncHandeler(async(req, res) => {
+    const incomingRefreshToken = req.cookies.refreshToken || req.body.refreshToken
+
+    if(!incomingRefreshToken){
+        throw new apiError(401, "Unauthorized Request.")
+    }
+
+    const decordedToken = jwt.verify(incomingRefreshToken, process.env.REFRESH_TOKEN_SECRET)
+
+    const user = await User.findById(decordedToken._id)
+
+    if(!user){
+        throw new apiError(401, "Invalid Refresh Token.")
+    }
+
+    if(incomingRefreshToken !== user?.refreshToken){
+        throw new apiError(409, "Refresh Token is expired or already in use.")
+    }
+
 })
 
 export  {
