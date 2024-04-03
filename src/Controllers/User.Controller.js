@@ -157,6 +157,20 @@ const refreshAccessToken = asyncHandeler(async (req, res) => {
     }
 })
 
+const changeCurrentPassword = asyncHandeler(async(req, res) => {
+    const {oldPassword, NewPassword} = req.body
+
+    const user = await User.findById(req.user?._id)
+
+    const isPasswordCorrect = await user.isPasswordCorrect(oldPassword)
+
+    if(!isPasswordCorrect){
+        throw new apiError(401, "Invalid Old Password")
+    }
+
+    
+})
+
 export {
     RegisterUser,
     loginUser,
