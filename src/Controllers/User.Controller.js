@@ -168,12 +168,17 @@ const changeCurrentPassword = asyncHandeler(async(req, res) => {
         throw new apiError(401, "Invalid Old Password")
     }
 
-    
+    user.password = NewPassword
+    await user.save({validateBeforeSave: false})
+
+    return res.status(201)
+    .json(new apiResponse(200, {}, "Password Updated Successfully"))
 })
 
 export {
     RegisterUser,
     loginUser,
     logOutUser,
-    refreshAccessToken
+    refreshAccessToken,
+    changeCurrentPassword
 };
