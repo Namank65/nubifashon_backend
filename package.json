@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "type": "module",
+  "engines": {
+    "node": ">=18.18.0 <19.0.0"
+  },
   "scripts": {
     "start": "node -r dotenv/config --experimental-json-modules src/index.js",
     "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
