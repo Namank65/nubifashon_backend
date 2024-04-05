@@ -1,4 +1,3 @@
-// const path = require("path");
 import ConnectDB from "./DB/index.js";
 import dotenv from "dotenv";
 import { app } from "./app.js";
