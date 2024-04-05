@@ -16,7 +16,7 @@ const productUpload = asyncHandler(async (req, res) => {
     const productImage = await uploadOnCloudinary(productLocalPath);
 
     if (!productImage) {
-        throw apiError(402, "Product Is Required")
+        throw new apiError(402, "Product Is Required")
     }
 
     const product = await Product.create({
