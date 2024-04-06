@@ -175,10 +175,15 @@ const changeCurrentPassword = asyncHandeler(async(req, res) => {
     .json(new apiResponse(200, {}, "Password Updated Successfully"))
 })
 
+const temRoute = asyncHandeler(async(req, res) => {
+    res.json(new apiResponse(200, {}, "working fine"))
+})
+
 export {
     RegisterUser,
     loginUser,
     logOutUser,
     refreshAccessToken,
-    changeCurrentPassword
+    changeCurrentPassword,
+    temRoute
 };
