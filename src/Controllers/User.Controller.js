@@ -1,6 +1,6 @@
 import apiError from "../utils/apiError.js";
 import asyncHandeler from "../utils/asyncHandler.js"
-import { User } from "../Models/User.model.js";
+import { User } from "../models/User.model.js";
 import apiResponse from "../utils/apiResponce.js";
 import { cookiesOptions } from "../Constants.js"
 import jwt from "jsonwebtoken";

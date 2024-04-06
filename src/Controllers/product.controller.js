@@ -1,7 +1,7 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import apiError from "../utils/apiError.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
-import { Product } from "../Models/Product.model.js";
+import { Product } from "../models/Product.model.js";
 import apiResponse from "../utils/apiResponce.js"
 
 const productUpload = asyncHandler(async (req, res) => {
