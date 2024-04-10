@@ -62,15 +62,13 @@ const RegisterUser = asyncHandeler(async (req, res) => {
 })
 
 const loginUser = asyncHandeler(async (req, res) => {
-    const { userName, email, password } = req.body;
+    const { userName, password } = req.body;
 
-    if (!userName && !email) {
-        throw new apiError(400, "User Name Or Email Is Required.")
+    if (!(userName || password)) {
+        throw new apiError(400, "User Name or password Is Required.")
     }
 
-    const user = await User.findOne({
-        $or: [{ userName }, { email }]
-    })
+    const user = await User.findOne({userName})
 
     if (!user) {
         throw new apiError(404, "User Name Or Email Dose Not Existed.")
