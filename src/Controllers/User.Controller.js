@@ -64,8 +64,11 @@ const RegisterUser = asyncHandeler(async (req, res) => {
 const loginUser = asyncHandeler(async (req, res) => {
     const { userName, password } = req.body;
 
-    if (!userName && password) {
+    if (!userName ) {
         throw new apiError(400, "User Name or password Is Required.")
+    }
+    if(password === "") {
+        throw new apiError(404, "Please Enter A Valid Password")
     }
 
     const user = await User.findOne({userName})
