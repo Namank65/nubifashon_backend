@@ -9,7 +9,7 @@ router.route("/login").post(loginUser)
 router.route("/").get(temRoute)
 
 // Secured routes
-router.route("/logout").post(verifyJwt, logOutUser)
+router.route("/logout").get(verifyJwt, logOutUser)
 router.route("/refresh-token").post(refreshAccessToken)
 
 export default router;
