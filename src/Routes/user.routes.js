@@ -4,7 +4,7 @@ import verifyJwt from "../MiddleWare/auth.middleWare.js";
 
 const router = Router();
 
-router.route("/register").post(RegisterUser)
+router.route("/register").post(verifyJwt, RegisterUser)
 router.route("/login").post(loginUser)
 router.route("/").get(temRoute)
 
