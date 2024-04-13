@@ -56,9 +56,35 @@ const RegisterUser = asyncHandeler(async (req, res) => {
         throw new apiError(501, "Something Went Wrong While Registering A User")
     }
 
-    return res.status(201).json(
-        new apiResponse(200, createdUser, "Registerd Successfully")
-    )
+
+    const isPasswordValid = user.isPasswordCorrect(password);
+
+    if (!isPasswordValid) {
+        throw new apiError(401, "Invalid User Cridentials.")
+    }
+
+    const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
+
+    const loggedInUser = await User.findById(user._id).select(" -password -refreshToken")
+
+    return res
+        .status(201)
+        .cookie("accessToken", accessToken, cookiesOptions)
+        .cookie("refreshToken", refreshToken, cookiesOptions)
+        .json(
+            new apiResponse(
+                200,
+                {
+                    user: loggedInUser, accessToken, refreshToken
+                },
+                "Registed And Logged In Successfully"
+            )
+        )
+
+
+    // return res.status(201).json(
+    //     new apiResponse(200, createdUser, "Registerd Successfully")
+    // )
 })
 
 const loginUser = asyncHandeler(async (req, res) => {
