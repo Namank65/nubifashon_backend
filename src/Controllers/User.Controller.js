@@ -50,13 +50,6 @@ const RegisterUser = asyncHandeler(async (req, res) => {
         password
     })
 
-    const createdUser = await User.findById(user._id).select(" -password -refreshToken");
-
-    if (!createdUser) {
-        throw new apiError(501, "Something Went Wrong While Registering A User")
-    }
-
-
     const isPasswordValid = user.isPasswordCorrect(password);
 
     if (!isPasswordValid) {
@@ -65,7 +58,7 @@ const RegisterUser = asyncHandeler(async (req, res) => {
 
     const { accessToken, refreshToken } = await generateAccessAndRefreshTokens(user._id)
 
-    const loggedInUser = await User.findById(user._id).select(" -password -refreshToken")
+    const loggedInUser = await User.findById(user._id).select("-password -refreshToken")
 
     return res
         .status(201)
@@ -81,10 +74,6 @@ const RegisterUser = asyncHandeler(async (req, res) => {
             )
         )
 
-
-    // return res.status(201).json(
-    //     new apiResponse(200, createdUser, "Registerd Successfully")
-    // )
 })
 
 const loginUser = asyncHandeler(async (req, res) => {
@@ -103,7 +92,7 @@ const loginUser = asyncHandeler(async (req, res) => {
         throw new apiError(404, "User Name Or Email Dose Not Existed.")
     }
 
-    const isPasswordValid = user.isPasswordCorrect(password);
+    const isPasswordValid =  user.isPasswordCorrect(password);
 
     if (!isPasswordValid) {
         throw new apiError(401, "Invalid User Cridentials.")
@@ -202,8 +191,8 @@ const changeCurrentPassword = asyncHandeler(async(req, res) => {
     .json(new apiResponse(200, {}, "Password Updated Successfully"))
 })
 
-const temRoute = asyncHandeler(async(req, res) => {
-    res.json(new apiResponse(200, {}, "working fine"))
+const myUserProfile = asyncHandeler(async(req, res) => {
+    res.status(200).json(new apiResponse(201, {user: req.user}, "working fine"))
 })
 
 export {
@@ -212,5 +201,5 @@ export {
     logOutUser,
     refreshAccessToken,
     changeCurrentPassword,
-    temRoute
+    myUserProfile
 };
