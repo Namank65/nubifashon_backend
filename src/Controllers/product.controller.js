@@ -35,4 +35,8 @@ const productUpload = asyncHandler(async (req, res) => {
 
 })
 
+const addProduct = asyncHandler(async (req, res) => {
+    const {id, name, images, category, newPrice, oldPrice} = req.body;
+})
+
 export default productUpload;
