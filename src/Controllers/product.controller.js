@@ -36,10 +36,10 @@ const productUpload = asyncHandler(async (req, res) => {
 })
 
 const addProduct = asyncHandler(async (req, res) => {
-    const {id, name, images, category, newPrice, oldPrice} = req.body;
+    const { id, name, images, category, newPrice, oldPrice } = req.body;
 
     console.log(id, name, images, category, newPrice, oldPrice)
-    const createdProduct = await Product.create({id, name, images, category, newPrice, oldPrice})
+    const createdProduct = await Product.create({ id, name, images, category, newPrice, oldPrice })
 
     await createdProduct.save()
     console.log("Saved Success")
@@ -47,4 +47,4 @@ const addProduct = asyncHandler(async (req, res) => {
     return res.status(200).json(new apiResponse(200, createdProduct, "Producted Created And Added Successfully "))
 })
 
-export default productUpload;
+export { productUpload, addProduct };
