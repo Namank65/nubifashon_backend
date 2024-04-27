@@ -36,15 +36,32 @@ const productUpload = asyncHandler(async (req, res) => {
 })
 
 const addProduct = asyncHandler(async (req, res) => {
-    const { id, name, images, category, newPrice, oldPrice } = req.body;
 
-    console.log(id, name, images, category, newPrice, oldPrice)
+    let product = await Product.find({})
+    let id;
+    if (product.length > 0) {
+        let lastProductArray = product.slice(-1)
+        let lastProduct = lastProductArray[0]
+        id = lastProduct.id + 1
+    } else (
+        id = 1
+    )
+
+    const { name, images, category, newPrice, oldPrice } = req.body;
     const createdProduct = await Product.create({ id, name, images, category, newPrice, oldPrice })
-
     await createdProduct.save()
-    console.log("Saved Success")
 
     return res.status(200).json(new apiResponse(200, createdProduct, "Producted Created And Added Successfully "))
 })
 
-export { productUpload, addProduct };
+const removeProduct = asyncHandler(async (req, res) => {
+    await Product.findOneAndDelete({ id: req.body.id })
+    return res.status(201).json(new apiResponse(200, { name: req.body.name }, "Product Removed Successfully"))
+})
+
+const allProducts = asyncHandler(async(req, res) => {
+    const allProduct = await Product.find({});
+    return res.status(201).json( new apiResponse(200, allProduct, "All Product Fetched Successfully"))
+})
+
+export { productUpload, addProduct, removeProduct, allProducts };
