@@ -9,6 +9,8 @@ const storage = multer.diskStorage({
     }
 });
 
+//i found my mistake, i have to add .gitkeep file in my .upload/images file because its not there in my gitHub
+
 export const upload = multer({
     storage
 });
