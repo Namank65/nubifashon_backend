@@ -21,13 +21,6 @@ const productUpload = asyncHandler(async (req, res) => {
     const product = await Product.create({
         images: productImage.url
     })
-    // console.log(product.images)
-
-    // const createdProduct = await Product.findById(product._id);
-
-    // if (!createdProduct) {
-    //     throw new apiError(500, "Somthing Went Wrond While Createting The Product")
-    // }
 
     return res.status(201).json(
         new apiResponse(200, product.images, "Product Created Successfully")
