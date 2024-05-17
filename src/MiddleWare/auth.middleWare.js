@@ -6,20 +6,23 @@ import { User } from "../models/User.model.js";
 const verifyJwt = asyncHandler(async(req, res, next) => {
 
     try {
-        const token = req.cookies?.accessToken || req.header("Authorization").replace("Bearer ", "")
-    
+        const token = req.cookies?.accessToken //|| req.headers("Authorization")?.replace("Bearer ", "")
+
+        // console.log(req.headers)
+        // console.log(req.cookies?.accessToken)
+        
         if(!token) {
             throw new apiError(401, "Unauthorized Request")
         }
-    
+        
         const decordedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-    
+        
         const user = await User.findById(decordedToken?._id).select(" -password -refreshToken")
-    
+        
         if(!user){
             throw new apiError(409, "Invalid Access Token")
         }
-    
+        
         req.user = user
         next()
 
