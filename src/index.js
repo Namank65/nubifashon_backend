@@ -17,39 +17,3 @@ ConnectDB()
 .catch((error) => {
     console.log(`MongoDB Connection Failed !! ${error}`)
 })
-
-
-
-
-
-
-
-
-
-
-
-// API creation
-
-// app.get("/", (req, res) => {
-//     res.send("Express app is Running")
-// });
-
-// image storage engine
-
-// const storage = multer.diskStorage({
-//     destination: "./upload/images",
-//     filename: (req, file, cb) => {
-//         return cb(null, `${file.fieldname}_${Date.now}${path.extname(file.originalname)}`)
-//     }
-// });
-
-// const upload = multer({ storage });
-
-// app.use("/images", express.static('upload/images'));
-
-// app.post("/upload", upload.single('product'), (req, res) => {
-//     res.json({
-//         success: 1,
-//         image_url: `http://localhost:${port}/images${req.file.filename}`
-//     })
-// });
