@@ -5,6 +5,7 @@ import { Product } from "../models/Product.model.js";
 import apiResponse from "../utils/apiResponce.js"
 
 const productUpload = asyncHandler(async (req, res) => {
+    console.log(req.file)
 
     const productLocalPath = req.file?.path;
 
@@ -18,12 +19,12 @@ const productUpload = asyncHandler(async (req, res) => {
         throw new apiError(402, "Product Is Required")
     }
 
-    const product = await Product.create({
-        images: productImage.url
-    })
+    // const product = await Product.create({
+    //     images: productImage.url
+    // })
 
     return res.status(201).json(
-        new apiResponse(200, product.images, "Product Created Successfully")
+        new apiResponse(200, {images: productImage.url}, "Product Created Successfully")
     )
 
 })
