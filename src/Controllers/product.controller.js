@@ -19,10 +19,6 @@ const productUpload = asyncHandler(async (req, res) => {
         throw new apiError(402, "Product Is Required")
     }
 
-    // const product = await Product.create({
-    //     images: productImage.url
-    // })
-
     return res.status(201).json(
         new apiResponse(200, {images: productImage.url}, "Product Created Successfully")
     )
