@@ -54,4 +54,11 @@ const allProducts = asyncHandler(async(req, res) => {
     return res.status(201).json( new apiResponse(200, allProduct, "All Product Fetched Successfully"))
 })
 
-export { productUpload, addProduct, removeProduct, allProducts };
+const newCollection = asyncHandler(async(req,res) => {
+    const product = await Product.find({})
+    const newCollection = product.slice(1).slice(-8)
+
+    return res.status(200).json(new apiResponse(201, newCollection, "New Collection Fecthed SuccessFully"))
+})
+
+export { productUpload, addProduct, removeProduct, allProducts, newCollection };
