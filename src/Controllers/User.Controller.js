@@ -44,10 +44,16 @@ const RegisterUser = asyncHandeler(async (req, res) => {
         throw new apiError(409, "User With User Name Or Email Already Existed")
     }
 
+    let cart = {};
+    for(let i = 0; i <= 300; i++){
+        cart[i] = 0;
+    }
+
     const user = await User.create({
         userName: userName.toLowerCase(),
         email,
-        password
+        password,
+        cartData: cart
     })
 
     const isPasswordValid = user.isPasswordCorrect(password);

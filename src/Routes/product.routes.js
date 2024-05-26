@@ -12,5 +12,5 @@ router.route("/addProduct").post(addProduct);
 router.route("/removeProduct").post(removeProduct);
 router.route("/allProducts").get(allProducts);
 router.route("/newCollection").get(newCollection);
-router.route("/popularInWomen").get(popularInWomen)
+router.route("/popularInWomen").get(popularInWomen);
 export default router;
