@@ -11,7 +11,7 @@ const productAuth = asyncHandler(async(req, res, next) => {
         }
 
         const decordedToken = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
-        req.user = decordedToken
+        req.user = decordedToken.select(" -email -userName -iat -exp")
         next();
     } catch (error) {
         throw new apiError(401, error?.message || "Invalid Access Token")
