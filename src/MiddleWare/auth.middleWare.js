@@ -20,7 +20,7 @@ const verifyJwt = asyncHandler(async(req, res, next) => {
             throw new apiError(409, "Invalid Access Token")
         }
         
-        req.user = user
+        req.user = user.user
         next()
 
     } catch (error) {
