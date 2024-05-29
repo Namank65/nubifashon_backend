@@ -69,7 +69,7 @@ const popularInWomen = asyncHandler(async(req, res) => {
 })
 
 const addToCart = asyncHandler(async(req, res) => {
-    console.log(req.body, req.user);
+    console.log(req.body, req.user?._id);
 })
 
 export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart };
