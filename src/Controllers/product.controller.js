@@ -71,11 +71,10 @@ const popularInWomen = asyncHandler(async(req, res) => {
 
 const addToCart = asyncHandler(async(req, res) => {
     console.log(req.body, req.user?._id);
-    console.log(req.body, req.user?.id);
-    let userData = await User.findOne({_id: req.user?.id})
+    let userData = await User.findOne({_id: req.user?._id})
     userData.cartData[req.body.itemId] += 1;
 
-    await User.findByIdAndUpdate({_id: req.user.id}, {cartData: userData.cartData})
+    await User.findByIdAndUpdate({_id: req.user._id}, {cartData: userData.cartData})
 
     return res.status(200).json(new apiResponse(201, {}, "Product Added To The Cart Successfully"))
 })
