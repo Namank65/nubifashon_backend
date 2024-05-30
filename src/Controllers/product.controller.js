@@ -92,4 +92,10 @@ const removeFromCart = asyncHandler(async (req, res) => {
     return res.status(200).json(new apiResponse(201, {}, "Product Removed From The Cart Successfully"))
 })
 
-export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart };
+const getCart = asyncHandler(async (req, res) => {
+    const userData = await User.findOne({id: req.user?._id});
+
+    return res.status(200).json(new apiResponse(201, userData.cartData, "Fetched All User's Cart Data Successfully"))
+})
+
+export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart, getCart };

@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addProduct, addToCart, allProducts, newCollection, popularInWomen, productUpload, removeFromCart, removeProduct } from "../Controllers/product.controller.js";
+import { addProduct, addToCart, allProducts, getCart, newCollection, popularInWomen, productUpload, removeFromCart, removeProduct } from "../Controllers/product.controller.js";
 import { upload } from "../MiddleWare/Multer.middleWare.js";
 import productAuth from "../MiddleWare/productAuth.middleware.js";
 
@@ -17,4 +17,5 @@ router.route("/newCollection").get(newCollection);
 router.route("/popularInWomen").get(popularInWomen);
 router.route("/addToCart").post(productAuth, addToCart);
 router.route("/removeFromCart").post(productAuth, removeFromCart);
+router.route("/getCart").post(productAuth, getCart);
 export default router;
