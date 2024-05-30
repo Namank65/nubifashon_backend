@@ -2,7 +2,8 @@ import asyncHandler from "../utils/asyncHandler.js";
 import apiError from "../utils/apiError.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
 import { Product } from "../models/Product.model.js";
-import apiResponse from "../utils/apiResponce.js"
+import apiResponse from "../utils/apiResponce.js";
+import {User} from "../models/User.model.js"
 
 const productUpload = asyncHandler(async (req, res) => {
     console.log(req.file)
@@ -70,6 +71,13 @@ const popularInWomen = asyncHandler(async(req, res) => {
 
 const addToCart = asyncHandler(async(req, res) => {
     console.log(req.body, req.user?._id);
+    console.log(req.body, req.user?.id);
+    let userData = await User.findOne({_id: req.user?.id})
+    userData.cartData[req.body.itemId] += 1;
+
+    await User.findByIdAndUpdate({_id: req.user.id}, {cartData: userData.cartData})
+
+    return res.status(200).json(new apiResponse(201, {}, "Product Added To The Cart Successfully"))
 })
 
 export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart };
