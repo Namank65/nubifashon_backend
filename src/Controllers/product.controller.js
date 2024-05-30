@@ -3,7 +3,7 @@ import apiError from "../utils/apiError.js";
 import uploadOnCloudinary from "../utils/cloudinary.js";
 import { Product } from "../models/Product.model.js";
 import apiResponse from "../utils/apiResponce.js";
-import {User} from "../models/User.model.js"
+import { User } from "../models/User.model.js"
 
 const productUpload = asyncHandler(async (req, res) => {
     console.log(req.file)
@@ -21,7 +21,7 @@ const productUpload = asyncHandler(async (req, res) => {
     }
 
     return res.status(201).json(
-        new apiResponse(200, {images: productImage.url}, "Product Created Successfully")
+        new apiResponse(200, { images: productImage.url }, "Product Created Successfully")
     )
 
 })
@@ -50,33 +50,46 @@ const removeProduct = asyncHandler(async (req, res) => {
     return res.status(201).json(new apiResponse(200, { name: req.body.name }, "Product Removed Successfully"))
 })
 
-const allProducts = asyncHandler(async(req, res) => {
+const allProducts = asyncHandler(async (req, res) => {
     const allProduct = await Product.find({});
-    return res.status(201).json( new apiResponse(200, allProduct, "All Product Fetched Successfully"))
+    return res.status(201).json(new apiResponse(200, allProduct, "All Product Fetched Successfully"))
 })
 
-const newCollection = asyncHandler(async(req, res) => {
+const newCollection = asyncHandler(async (req, res) => {
     const product = await Product.find({})
     const newCollection = product.slice(1).slice(-8)
 
     return res.status(200).json(new apiResponse(201, newCollection, "New Collection Fecthed SuccessFully"))
 })
 
-const popularInWomen = asyncHandler(async(req, res) => {
-    const product = await Product.find({category: "Women"});
-    const popularInWomen = product.slice(0,4);
+const popularInWomen = asyncHandler(async (req, res) => {
+    const product = await Product.find({ category: "Women" });
+    const popularInWomen = product.slice(0, 4);
 
     return res.status(200).json(new apiResponse(201, popularInWomen, "Popular In Women Fetched Sucessfully"))
 })
 
-const addToCart = asyncHandler(async(req, res) => {
-    console.log(req.body, req.user?._id);
-    let userData = await User.findOne({_id: req.user?._id})
+const addToCart = asyncHandler(async (req, res) => {
+    console.log("added", req.body.itemId)
+    let userData = await User.findOne({ _id: req.user?._id })
     userData.cartData[req.body.itemId] += 1;
-
-    await User.findByIdAndUpdate({_id: req.user._id}, {cartData: userData.cartData})
-
+    
+    await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData })
+    
     return res.status(200).json(new apiResponse(201, {}, "Product Added To The Cart Successfully"))
 })
 
-export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart };
+const removeFromCart = asyncHandler(async (req, res) => {
+    console.log("removed", req.body.itemId)
+    let userData = await User.findOne({ _id: req.user?._id })
+    
+    if (userData.cartData[req.body.itemId] > 0) {
+        userData.cartData[req.body.itemId] -= 1;
+    }
+
+    await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData })
+
+    return res.status(200).json(new apiResponse(201, {}, "Product Removed From The Cart Successfully"))
+})
+
+export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart };
