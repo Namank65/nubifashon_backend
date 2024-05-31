@@ -11,7 +11,7 @@ const app = express();
 // }))
 
 // Split the CORS_ORIGINS environment variable into an array
-const allowedOrigins = process.env.CORS_ORIGINS.split(',');
+const allowedOrigins = process.env.CORS_ORIGIN.split(',');
 
 const corsOptions = {
   origin: function (origin, callback) {
