@@ -70,7 +70,6 @@ const popularInWomen = asyncHandler(async (req, res) => {
 })
 
 const addToCart = asyncHandler(async (req, res) => {
-    console.log("added", req.body.itemId)
     let userData = await User.findOne({ _id: req.user?._id })
     userData.cartData[req.body.itemId] += 1;
     
@@ -80,7 +79,6 @@ const addToCart = asyncHandler(async (req, res) => {
 })
 
 const removeFromCart = asyncHandler(async (req, res) => {
-    console.log("removed", req.body.itemId)
     let userData = await User.findOne({ _id: req.user?._id })
     
     if (userData.cartData[req.body.itemId] > 0) {
