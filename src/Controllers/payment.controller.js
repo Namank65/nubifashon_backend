@@ -10,5 +10,5 @@ export const checkout = asyncHandler(async(req, res) => {
       };
       
       const order = await instance.orders.create(options);
-      return res.status(200).json(new apiResponse(201, {success: true, order} , "Payment Successfull"));
+      return res.status(200).json(new apiResponse(201, order , "Payment Successfull"));
 })
