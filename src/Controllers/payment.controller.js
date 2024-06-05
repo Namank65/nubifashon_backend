@@ -10,6 +10,15 @@ export const checkout = asyncHandler(async(req, res) => {
       };
       
       const order = await instance.orders.create(options);
-      console.log(order)
       return res.status(200).json(new apiResponse(201, order , "Payment Successfull"));
+})
+
+export const paymentVerification = asyncHandler(async(req, res) => {
+
+      return res.status(200).json(new apiResponse(201, {}, "Payment Successfull"));
+})
+
+export const getRazorKey = asyncHandler(async(req, res) => {
+
+      return res.status(200).json(new apiResponse(201, {key: process.env.RAZORPAY_KEY}, "RazorPay Key Fetched Successfully"));
 })
