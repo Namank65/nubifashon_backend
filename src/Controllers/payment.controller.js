@@ -2,6 +2,7 @@ import asyncHandler from "../utils/asyncHandler.js";
 import { instance } from "../index.js";
 import apiResponse from "../utils/apiResponce.js";
 import crypto from "crypto"
+import apiError from "../utils/apiError.js";
 
 
 export const checkout = asyncHandler(async (req, res) => {
@@ -25,16 +26,13 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       .update(body.toString())
       .digest("hex")
 
-      console.log("ggg", expectedSignature)
-      console.log("already", razorpay_signature)
+      const isAuthentic = expectedSignature === razorpay_signature;
 
-      // const generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, process.env.RAZORPAY_SECRET);
-      // if (generated_signature == razorpay_signature) {
-      //       console.log("payment is successful123")
-      // }
-
-      // console.log("ggg", generated_signature)
-      // console.log("already", razorpay_signature)
+      if(isAuthentic){
+            "To be continue..."
+      }else{
+            return res.status(400).json(new apiError(401, {}, "OOPS Rezorpay Signature Did't Matched!"));
+      }
 
       return res.status(200).json(new apiResponse(201, {}, "Succes True"));
 })
