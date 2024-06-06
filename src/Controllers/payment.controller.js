@@ -8,12 +8,16 @@ export const checkout = asyncHandler(async(req, res) => {
         amount: Number(req.body.amount * 100),
         currency: "INR",
       };
-      
       const order = await instance.orders.create(options);
+
       return res.status(200).json(new apiResponse(201, order , "Payment Successfull"));
 })
 
 export const paymentVerification = asyncHandler(async(req, res) => {
+
+      console.log(req.body);
+      const { razorpay_order_id , razorpay_payment_id, razorpay_signature  } = req.body;
+      console.log(razorpay_order_id , razorpay_payment_id, razorpay_signature);
 
       return res.status(200).json(new apiResponse(201, {}, "Payment Successfull"));
 })
