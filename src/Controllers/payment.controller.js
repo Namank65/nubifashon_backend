@@ -17,9 +17,16 @@ export const paymentVerification = asyncHandler(async(req, res) => {
 
       console.log(req.body);
       const { razorpay_order_id , razorpay_payment_id, razorpay_signature  } = req.body;
-      console.log(razorpay_order_id , razorpay_payment_id, razorpay_signature);
 
-      return res.status(200).json(new apiResponse(201, {}, "Payment Successfull"));
+      const generated_signature = hmac_sha256(order_id + "|" + razorpay_payment_id, process.env.RAZORPAY_SECRET);
+
+  if (generated_signature == razorpay_signature) {
+    console.log("payment is successful123")
+    }
+console.log("ggg",generated_signature)
+console.log("already",razorpay_signature)
+
+      return res.status(200).json(new apiResponse(201, {}, "Succes True"));
 })
 
 export const getRazorKey = asyncHandler(async(req, res) => {
