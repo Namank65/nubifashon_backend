@@ -29,7 +29,9 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       const isAuthentic = expectedSignature === razorpay_signature;
 
       if(isAuthentic){
-            "To be continue..."
+            // data base comes here
+
+            res.redirect(`https://nubifashon-backend.onrender.com/api/v1/paymentsuccess?refrence=${razorpay_payment_id}`);
       }else{
             return res.status(400).json(new apiError(401, {}, "OOPS Rezorpay Signature Did't Matched!"));
       }
