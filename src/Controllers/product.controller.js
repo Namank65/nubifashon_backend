@@ -6,7 +6,6 @@ import apiResponse from "../utils/apiResponce.js";
 import { User } from "../models/User.model.js"
 
 const productUpload = asyncHandler(async (req, res) => {
-    console.log(req.file)
 
     const productLocalPath = req.file?.path;
 
