@@ -36,9 +36,13 @@ const addProduct = asyncHandler(async (req, res) => {
     } else (
         id = 1
     )
+    const { name, images, category, newPrice, oldPrice, size } = req.body;
 
-    const { name, images, category, newPrice, oldPrice } = req.body;
-    const createdProduct = await Product.create({ id, name, images, category, newPrice, oldPrice })
+    if([name, images, category, newPrice, oldPrice, size ].some((field) => field?.trim() === "")) {
+        throw new apiError(401, "All feilds are required")
+    }
+
+    const createdProduct = await Product.create({ id, name, images, category, newPrice, oldPrice, size })
     await createdProduct.save()
 
     return res.status(200).json(new apiResponse(200, createdProduct, "Producted Created And Added Successfully "))

@@ -32,6 +32,11 @@ const productSchema = new Schema({
     avilable: {
         type: Boolean,
         default: true
+    },
+    size: {
+        type: String,
+        enum: ["S", "M", "L", "XL"],
+        require: true
     }
 },
     {
