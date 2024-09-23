@@ -29,6 +29,11 @@ const userSchema = new Schema({
     },
     cartData: {
         type: Object
+    },
+    role: {
+        type: String,
+        enum: ["User", "Admin"],
+        default: "User"
     }
 
 }, { timestamps: true }
@@ -37,7 +42,7 @@ const userSchema = new Schema({
 userSchema.pre("save", async function (next) {
     if (!this.isModified("password")) return next();
 
-    this.password = await bcrypt.hash(this.password, 10)
+    this.password = bcrypt.hash(this.password, 10)
     next()
 })
 

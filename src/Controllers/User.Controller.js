@@ -197,6 +197,32 @@ const changeCurrentPassword = asyncHandeler(async(req, res) => {
     .json(new apiResponse(200, {}, "Password Updated Successfully"))
 })
 
+const allUsers = asyncHandeler(async(req, res) => {
+    const users = await User.find({})
+
+    return res.status(200).json(new apiResponse(201, {users}, "All Users Fetched Successfully"))
+})
+
+const getUser = asyncHandeler(async(req, res) => {
+    const id = req.params.id
+    const user = await User.findById(id)
+
+    if(!user) throw new apiError(401, "Invalid id or user")
+
+    return res.status(200).json(new apiResponse(201, {user}, "User Fetched Successfully"))
+})
+
+const deletUser = asyncHandeler(async(req, res) => {
+    const id = req.params.id
+    const user = await User.findById(id)
+
+    if(!user) throw new apiError(401, "Invalid id or user")
+
+       await user.deleteOne()
+
+    return res.status(200).json(new apiResponse(201, "User deleted Successfully"))
+})
+
 const myUserProfile = asyncHandeler(async(req, res) => {
     res.status(200).json(new apiResponse(201, {user: req.user}, "working fine"))
 })
@@ -207,5 +233,8 @@ export {
     logOutUser,
     refreshAccessToken,
     changeCurrentPassword,
+    allUsers,
+    getUser,
+    deletUser,
     myUserProfile
 };
