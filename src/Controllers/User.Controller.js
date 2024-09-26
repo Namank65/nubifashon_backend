@@ -224,6 +224,7 @@ const deletUser = asyncHandeler(async(req, res) => {
 })
 
 const myUserProfile = asyncHandeler(async(req, res) => {
+    // this api is just for testing perpose
     res.status(200).json(new apiResponse(201, {user: req.user}, "working fine"))
 })
 
