@@ -4,7 +4,6 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const adminOnly = asyncHandler(async (req, res, next) => {
   const { id } = req.query;
-  console.log(id);
   if (!id) throw new apiError(400, "Invalid id");
 
   const user = await User.findById(id);
