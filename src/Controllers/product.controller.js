@@ -55,6 +55,7 @@ const removeProduct = asyncHandler(async (req, res) => {
 
 const allProducts = asyncHandler(async (req, res) => {
     const allProduct = await Product.find({});
+    if(!allProduct) throw new apiError(400, "Couldn't Found The Product")
     return res.status(201).json(new apiResponse(200, allProduct, "All Product Fetched Successfully"))
 })
 
