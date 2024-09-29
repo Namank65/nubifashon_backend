@@ -7,9 +7,8 @@ const router = Router();
 
 router.route("/register").post( RegisterUser)
 router.route("/login").post(loginUser)
-router.route("/all").get(adminOnly, allUsers)
-router.route("/:id").get( getUser)
 router.route("/:id").get( getUser).delete(deletUser)
+router.route("/all").get(adminOnly, allUsers)
 
 // Secured routes
 router.route("/profile").get(verifyJwt, myUserProfile)

@@ -37,6 +37,11 @@ const productSchema = new Schema({
         type: String,
         enum: ["S", "M", "L", "XL"],
         require: true
+    },
+    stock: {
+        type: Number,
+        default: 0,
+        require: true
     }
 },
     {
