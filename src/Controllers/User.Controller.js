@@ -227,6 +227,7 @@ const myUserProfile = asyncHandeler(async(req, res) => {
     // this api is just for testing perpose
     // remove it when you are done with this api
     // creating the commment for the systum integreation
+    // Adding another comment for consistency
     res.status(200).json(new apiResponse(201, {user: req.user}, "working fine"))
 })
 
