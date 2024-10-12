@@ -228,7 +228,8 @@ const myUserProfile = asyncHandeler(async(req, res) => {
     // remove it when you are done with this api
     // creating the commment for the systum integreation
     // Adding another comment for consistency
-    //adding another comment for consistency
+    // Adding another comment for consistency
+    // Adding another comment for consistency
     res.status(200).json(new apiResponse(201, {user: req.user}, "working fine"))
 })
 
