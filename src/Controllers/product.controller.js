@@ -25,6 +25,8 @@ const productUpload = asyncHandler(async (req, res) => {
 
 })
 
+// this api is under construction
+
 // const newProduct1 = asyncHandler(async (req, res) => {
 //     const { name, images, category, newPrice, oldPrice, size, stock } = req.body;
 
