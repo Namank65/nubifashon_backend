@@ -74,6 +74,12 @@ const allProducts = asyncHandler(async (req, res) => {
     return res.status(201).json(new apiResponse(200, allProduct, "All Product Fetched Successfully"))
 })
 
+const getLatestProduct = asyncHandler(async (req, res) => {
+    const product = await Product.find({}).sort({createdAt: -1}).limit(5)
+
+    return res.status(200).json(new apiResponse(201, product, "New Collection Fecthed SuccessFully"))
+})
+
 const newCollection = asyncHandler(async (req, res) => {
     const product = await Product.find({})
     const newCollection = product.slice(1).slice(-8)
@@ -115,4 +121,4 @@ const getCart = asyncHandler(async (req, res) => {
     return res.status(200).json(new apiResponse(201, userData.cartData, "Fetched All User's Cart Data Successfully"))
 })
 
-export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart, getCart };
+export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart, getCart, getLatestProduct };
