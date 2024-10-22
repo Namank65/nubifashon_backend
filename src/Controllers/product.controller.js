@@ -20,7 +20,7 @@ const productUpload = asyncHandler(async (req, res) => {
     }
 
     return res.status(201).json(
-        new apiResponse(200, { images: productImage.url }, "Product Created Successfully")
+        new apiResponse(200, { images: productImage.url }, "Product Image Updated Successfully")
     )
 
 })
@@ -70,19 +70,41 @@ const removeProduct = asyncHandler(async (req, res) => {
 
 const allProducts = asyncHandler(async (req, res) => {
     const allProduct = await Product.find({});
-    if(!allProduct) throw new apiError(400, "Couldn't Found The Product")
+
+    if(!allProduct) throw new apiError(400, "Couldn't Found The Product");
+
     return res.status(201).json(new apiResponse(200, allProduct, "All Product Fetched Successfully"))
 })
 
 const getLatestProduct = asyncHandler(async (req, res) => {
-    const product = await Product.find({}).sort({createdAt: -1}).limit(5)
+    const product = await Product.find({}).sort({createdAt: -1}).limit(5);
+
+    if(!product) throw new apiError(400, "Couldn't Found The Product");
+
+    return res.status(200).json(new apiResponse(201, product, "New Collection Fecthed SuccessFully"))
+})
+
+const categories = asyncHandler(async (req, res) => {
+    const category = await Product.distinct("category");
+
+    if(!category) throw new apiError(400, "Couldn't Found The Given Categories");
+
+    return res.status(200).json(new apiResponse(201, category, "New Collection Fecthed SuccessFully"))
+})
+
+const getSingleProduct = asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+
+    if(!product) throw new apiError(400, "Couldn't Found The Given Product");
 
     return res.status(200).json(new apiResponse(201, product, "New Collection Fecthed SuccessFully"))
 })
 
 const newCollection = asyncHandler(async (req, res) => {
-    const product = await Product.find({})
-    const newCollection = product.slice(1).slice(-8)
+    const product = await Product.find({});
+    const newCollection = product.slice(1).slice(-8);
+
+    if(!newCollection) throw new apiError(400, "Error in Fetching NewCollection");
 
     return res.status(200).json(new apiResponse(201, newCollection, "New Collection Fecthed SuccessFully"))
 })
@@ -121,4 +143,4 @@ const getCart = asyncHandler(async (req, res) => {
     return res.status(200).json(new apiResponse(201, userData.cartData, "Fetched All User's Cart Data Successfully"))
 })
 
-export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart, getCart, getLatestProduct };
+export { productUpload, addProduct, removeProduct, allProducts, newCollection, popularInWomen, addToCart, removeFromCart, getCart, getLatestProduct, categories, getSingleProduct };
