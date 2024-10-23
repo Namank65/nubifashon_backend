@@ -28,8 +28,8 @@ router.route("/popularInWomen").get(popularInWomen);
 router.route("/:id").get(getSingleProduct);
 
 router.route("/addProduct").post(addProduct);
-router.route("/removeProduct").post(removeProduct);
-router.route("/removeFromCart").post(productAuth, removeFromCart);
+router.route("/removeProduct").delete(removeProduct);
+router.route("/removeFromCart").delete(productAuth, removeFromCart);
 router.route("/getCart").post(productAuth, getCart);
 router.route("/addToCart").post(productAuth, addToCart);
 export default router;

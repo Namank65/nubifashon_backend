@@ -16,7 +16,7 @@ const productUpload = asyncHandler(async (req, res) => {
     const productImage = await uploadOnCloudinary(productLocalPath);
 
     if (!productImage) {
-        throw new apiError(402, "Product Is Required")
+        throw new apiError(402, "Product Image Is Required")
     }
 
     return res.status(201).json(
@@ -79,9 +79,9 @@ const allProducts = asyncHandler(async (req, res) => {
 const getLatestProduct = asyncHandler(async (req, res) => {
     const product = await Product.find({}).sort({createdAt: -1}).limit(5);
 
-    if(!product) throw new apiError(400, "Couldn't Found The Product");
+    if(!product) throw new apiError(400, "Couldn't Found The Products");
 
-    return res.status(200).json(new apiResponse(201, product, "New Collection Fecthed SuccessFully"))
+    return res.status(200).json(new apiResponse(201, product, "All Latested products Fecthed SuccessFully"))
 })
 
 const categories = asyncHandler(async (req, res) => {
@@ -89,7 +89,7 @@ const categories = asyncHandler(async (req, res) => {
 
     if(!category) throw new apiError(400, "Couldn't Found The Given Categories");
 
-    return res.status(200).json(new apiResponse(201, category, "New Collection Fecthed SuccessFully"))
+    return res.status(200).json(new apiResponse(201, category, "All Unique Categories Fecthed SuccessFully"))
 })
 
 const getSingleProduct = asyncHandler(async (req, res) => {
