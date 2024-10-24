@@ -97,7 +97,7 @@ const getSingleProduct = asyncHandler(async (req, res) => {
 
     if(!product) throw new apiError(400, "Couldn't Found The Given Product");
 
-    return res.status(200).json(new apiResponse(201, product, "New Collection Fecthed SuccessFully"))
+    return res.status(200).json(new apiResponse(201, product, "Project Fecthed SuccessFully"))
 })
 
 const newCollection = asyncHandler(async (req, res) => {
@@ -113,14 +113,18 @@ const popularInWomen = asyncHandler(async (req, res) => {
     const product = await Product.find({ category: "Women" });
     const popularInWomen = product.slice(0, 4);
 
+    if(!popularInWomen) throw new apiError(400, "Error in Fetching Popular In Women");
+
     return res.status(200).json(new apiResponse(201, popularInWomen, "Popular In Women Fetched Sucessfully"))
 })
 
 const addToCart = asyncHandler(async (req, res) => {
     let userData = await User.findOne({ _id: req.user?._id })
+
+    if(!userData) throw new apiError(400, "Error in Fetching Popular In Women");
     userData.cartData[req.body.itemId] += 1;
     
-    await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData })
+    await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData });
     
     return res.status(200).json(new apiResponse(201, {}, "Product Added To The Cart Successfully"))
 })
