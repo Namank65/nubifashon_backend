@@ -7,12 +7,13 @@ const router = Router();
 
 router.route("/register").post( RegisterUser)
 router.route("/login").post(loginUser)
-router.route("/:id").get( getUser).delete(deletUser)
 router.route("/all").get(adminOnly, allUsers)
 
 // Secured routes
 router.route("/profile").get(verifyJwt, myUserProfile)
 router.route("/logout").get(verifyJwt, logOutUser)
 router.route("/refresh-token").post(refreshAccessToken)
+
+router.route("/:id").get( getUser).delete(deletUser)
 
 export default router;
