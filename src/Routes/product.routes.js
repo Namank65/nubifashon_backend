@@ -29,7 +29,7 @@ router.route("/:id").get(getSingleProduct);
 
 router.route("/addProduct").post(addProduct);
 router.route("/removeProduct").delete(removeProduct);
-router.route("/removeFromCart").delete(productAuth, removeFromCart);
+router.route("/removeFromCart").post(productAuth, removeFromCart);
 router.route("/getCart").post(productAuth, getCart);
 router.route("/addToCart").post(productAuth, addToCart);
 export default router;
