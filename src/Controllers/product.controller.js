@@ -123,6 +123,7 @@ const addToCart = asyncHandler(async (req, res) => {
 
     if(!userData) throw new apiError(400, "Error in Fetching User Data");
     // userData.cartData[req.body.itemId] += 1;
+    // this is working fine we will resume our work from here tomorrow 
     userData.cartData[req.body.itemId].quantity += 1;
     
     await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData });
