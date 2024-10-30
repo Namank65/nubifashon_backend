@@ -57,8 +57,6 @@ const RegisterUser = asyncHandeler(async (req, res) => {
         };
     }
 
-
-
     const user = await User.create({
         userName: userName.toLowerCase(),
         email,
