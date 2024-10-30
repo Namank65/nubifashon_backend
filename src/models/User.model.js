@@ -28,14 +28,8 @@ const userSchema = new Schema({
         type: String
     },
     cartData: {
-        quantity: {
-          type: Number,
-          default: 0,
-        },
-        productSize: {
-          type: String,
-          default: "",
-        },
+        type: Number,
+
     },
     role: {
         type: String,

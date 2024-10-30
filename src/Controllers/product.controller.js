@@ -123,7 +123,11 @@ const addToCart = asyncHandler(async (req, res) => {
 
     if(!userData) throw new apiError(400, "Error in Fetching User Data");
     // userData.cartData[req.body.itemId] += 1;
+
+    // userData.cartData[req.body.itemId].quantity += 1;
     userData.cartData[req.body.itemId].quantity += 1;
+    console.log(userData.cartData)
+    console.log(req.body.itemId)
 
     // userData.cartData[req.body.itemId].productSize = size;
     // will continue working on it from tomorrow
