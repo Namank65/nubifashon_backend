@@ -126,10 +126,8 @@ const addToCart = asyncHandler(async (req, res) => {
 
     // userData.cartData[req.body.itemId].quantity += 1;
     userData.cartData[req.body.itemId].quantity += 1;
-    console.log(userData.cartData)
-    console.log(req.body.itemId)
 
-    // userData.cartData[req.body.itemId].productSize = size;
+    userData.cartData[req.body.itemId].productSize = "M";
     // will continue working on it from tomorrow
     
     await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData });
