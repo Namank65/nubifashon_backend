@@ -119,6 +119,7 @@ const popularInWomen = asyncHandler(async (req, res) => {
 })
 
 const addToCart = asyncHandler(async (req, res) => {
+    const {size} = req.body
     let userData = await User.findOne({ _id: req.user?._id });
 
     if(!userData) throw new apiError(400, "Error in Fetching User Data");
@@ -127,7 +128,7 @@ const addToCart = asyncHandler(async (req, res) => {
     // userData.cartData[req.body.itemId].quantity += 1;
     userData.cartData[req.body.itemId].quantity += 1;
 
-    userData.cartData[req.body.itemId].productSize = "M";
+    userData.cartData[req.body.itemId].productSize = size;
     // will continue working on it from tomorrow
     
     await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData });
@@ -140,8 +141,8 @@ const removeFromCart = asyncHandler(async (req, res) => {
 
     if(!userData) throw new apiError(400, "Error in Fetching User Data");
     
-    if (userData.cartData[req.body.itemId] > 0) {
-        userData.cartData[req.body.itemId] -= 1;
+    if (userData.cartData[req.body.itemId].quantity > 0) {
+        userData.cartData[req.body.itemId].quantity -= 1;
     }
 
     await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData })
