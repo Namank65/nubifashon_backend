@@ -123,14 +123,9 @@ const addToCart = asyncHandler(async (req, res) => {
     let userData = await User.findOne({ _id: req.user?._id });
 
     if(!userData) throw new apiError(400, "Error in Fetching User Data");
-    // userData.cartData[req.body.itemId] += 1;
-
-    // userData.cartData[req.body.itemId].quantity += 1;
     userData.cartData[req.body.itemId].quantity += 1;
 
     userData.cartData[req.body.itemId].productSize = size;
-    // will continue working on it from tomorrow
-    
     await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData });
     
     return res.status(200).json(new apiResponse(201, {}, "Product Added To The Cart Successfully"))
@@ -143,6 +138,7 @@ const removeFromCart = asyncHandler(async (req, res) => {
     
     if (userData.cartData[req.body.itemId].quantity > 0) {
         userData.cartData[req.body.itemId].quantity -= 1;
+        userData.cartData[req.body.itemId].productSize = "";
     }
 
     await User.findByIdAndUpdate({ _id: req.user._id }, { cartData: userData.cartData })
