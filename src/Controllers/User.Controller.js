@@ -47,7 +47,7 @@ const RegisterUser = asyncHandeler(async (req, res) => {
     // let cart = {};
     // for(let i = 0; i <= 300; i++){
     //     cart[i] = 0;
-    // }
+    // will delet this later}
 
     let cart = {};
     for(let i = 0; i <= 100; i++){
