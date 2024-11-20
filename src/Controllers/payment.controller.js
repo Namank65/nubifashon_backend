@@ -32,6 +32,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
 
   if (isAuthentic) {
     // data base comes here
+    // i will puch here for consistency
     await Payment.create({
       razorpay_order_id,
       razorpay_payment_id,
