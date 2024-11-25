@@ -36,6 +36,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
     // will continue push for consistency
     // commenting for consistency
     // continuing for consistency
+    // continuing for consistency
     await Payment.create({
       razorpay_order_id,
       razorpay_payment_id,
