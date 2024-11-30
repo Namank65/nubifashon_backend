@@ -40,6 +40,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
     // doing for consistency
     // doing for consistency just to set the 2024 target
     // for consistency
+    // for consistency just to set the 2024 target complete
     await Payment.create({
       razorpay_order_id,
       razorpay_payment_id,
