@@ -31,16 +31,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
   const isAuthentic = expectedSignature === razorpay_signature;
 
   if (isAuthentic) {
-    // data base comes here
-    // i will push here for consistency
-    // will continue push for consistency
-    // commenting for consistency
-    // continuing for consistency
-    // continuing for consistency
-    // doing for consistency
-    // doing for consistency just to set the 2024 target
-    // for consistency
-    // for consistency just to set the 2024 target complete
+    // 1decmber commit
     await Payment.create({
       razorpay_order_id,
       razorpay_payment_id,
