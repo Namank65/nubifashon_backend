@@ -31,9 +31,6 @@ export const paymentVerification = asyncHandler(async (req, res) => {
   const isAuthentic = expectedSignature === razorpay_signature;
 
   if (isAuthentic) {
-    // 1decmber commit
-    // figuring out how to start
-    // will start pushing code soon
     await Payment.create({
       razorpay_order_id,
       razorpay_payment_id,

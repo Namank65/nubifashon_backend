@@ -203,9 +203,12 @@ const removeFromCart = asyncHandler(async (req, res) => {
 
   if (!userData) throw new apiError(400, "Error in Fetching User Data");
 
-  if (userData.cartData[req.body.itemId].quantity > 0) {
+  if (userData.cartData[req.body.itemId].quantity === 1) {
     userData.cartData[req.body.itemId].quantity -= 1;
     userData.cartData[req.body.itemId].productSize = "";
+  }else{
+    userData.cartData[req.body.itemId].quantity -= 1;
+    userData.cartData[req.body.itemId].productSize
   }
 
   await User.findByIdAndUpdate(
