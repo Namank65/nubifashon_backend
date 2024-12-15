@@ -236,6 +236,19 @@ const getUser = asyncHandeler(async (req, res) => {
     .json(new apiResponse(201, { user }, "User Fetched Successfully"));
 });
 
+const getRole = asyncHandeler(async (req, res) => {
+  const id = req.params.id;
+  const user = await User.findById(id);
+  console.log(user.role);
+  
+
+  if (!user) throw new apiError(401, "Invalid id or user");
+
+  return res
+    .status(200)
+    .json(new apiResponse(201, { user }, "User Fetched Successfully"));
+});
+
 const deletUser = asyncHandeler(async (req, res) => {
   const id = req.params.id;
   const user = await User.findById(id);
@@ -265,4 +278,5 @@ export {
   getUser,
   deletUser,
   myUserProfile,
+  getRole
 };
