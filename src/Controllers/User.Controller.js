@@ -57,7 +57,7 @@ const RegisterUser = asyncHandeler(async (req, res) => {
     cartData: cart,
   });
 
-  const isPasswordValid = user.isPasswordCorrect(password);
+  const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
     throw new apiError(401, "Invalid User Cridentials.");
@@ -104,7 +104,7 @@ const loginUser = asyncHandeler(async (req, res) => {
     throw new apiError(404, "User Name Or Email Dose Not Existed.");
   }
 
-  const isPasswordValid = user.isPasswordCorrect(password);
+  const isPasswordValid = await user.isPasswordCorrect(password);
 
   if (!isPasswordValid) {
     throw new apiError(401, "Invalid User Cridentials.");
