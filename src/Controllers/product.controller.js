@@ -138,6 +138,10 @@ const getSingleProduct = asyncHandler(async (req, res) => {
 
 const newCollection = asyncHandler(async (req, res) => {
   const product = await Product.find({});
+
+  if (!product)
+    throw new apiError(400, "Error in Fetching product");
+
   const newCollection = product.slice(1).slice(-8);
 
   if (!newCollection)
