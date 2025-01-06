@@ -156,6 +156,10 @@ const newCollection = asyncHandler(async (req, res) => {
 
 const popularInWomen = asyncHandler(async (req, res) => {
   const product = await Product.find({ category: "Women" });
+  
+  if (!product)
+    throw new apiError(400, "Error in Fetching product");
+
   const popularInWomen = product.slice(0, 4);
 
   if (!popularInWomen)
