@@ -73,6 +73,7 @@ const addProduct = asyncHandler(async (req, res) => {
 
 const removeProduct = asyncHandler(async (req, res) => {
   await Product.findOneAndDelete({ id: req.body.id });
+  if (!Product) throw new apiError(400, "Couldn't Found The Product");
   return res
     .status(201)
     .json(
@@ -156,7 +157,7 @@ const newCollection = asyncHandler(async (req, res) => {
 
 const popularInWomen = asyncHandler(async (req, res) => {
   const product = await Product.find({ category: "Women" });
-  
+
   if (!product)
     throw new apiError(400, "Error in Fetching product");
 
