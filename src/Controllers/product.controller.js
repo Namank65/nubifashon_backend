@@ -32,6 +32,9 @@ const productUpload = asyncHandler(async (req, res) => {
 
 const addProduct = asyncHandler(async (req, res) => {
   let product = await Product.find({});
+  
+  if (!Product) throw new apiError(400, "Couldn't Found The Product");
+
   let id;
   if (product.length > 0) {
     let lastProductArray = product.slice(-1);
