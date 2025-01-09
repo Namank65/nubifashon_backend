@@ -8,6 +8,9 @@ import jwt from "jsonwebtoken";
 const generateAccessAndRefreshTokens = async (userId) => {
   try {
     const user = await User.findById(userId);
+    
+    if(!user) throw new apiError(401, "Product Image Is Required")
+
     const accessToken = user.generateAccessToken();
     const refreshToken = user.generateRefreshToken();
 
