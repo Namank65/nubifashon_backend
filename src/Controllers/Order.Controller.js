@@ -1,4 +1,4 @@
-import { Order } from "../models/Order.model";
+import { Order } from "../models/Order.model.js";
 
 
 
