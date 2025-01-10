@@ -39,10 +39,13 @@ app.use(cookieParser());
 // routes import
 import userRouter from "./Routes/user.routes.js";
 import productRouter from "./Routes/product.routes.js";
-import paymentRouter from "./Routes/payment.routes.js"
+import paymentRouter from "./Routes/payment.routes.js";
+import orderRouter from "./Routes/order.routes.js";
+
 
 // routes decleared
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/upload", productRouter)
 app.use("/api/v1/payment", paymentRouter)
+app.use("/api/v1/order", orderRouter)
 export { app };
