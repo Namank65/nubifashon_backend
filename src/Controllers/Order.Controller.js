@@ -1,35 +1,15 @@
 import { Order } from "../models/Order.model.js";
 import apiError from "../utils/apiError.js";
+import apiResponse from "../utils/apiResponce.js";
 import asyncHandler from "../utils/asyncHandler.js";
 
 const newOrder = asyncHandler(async (req, res) => {
-    const { name, images, category, newPrice, oldPrice, size, stock, ProductId } = req.body;
+    const { user, orderItems } = req.body;
 
-    let order=[];
-
-    order = await Order.find();
-    
-    if (!order) throw new apiError(400, "Couldn't Found The Order Details");
-
+    if(!user || !orderItems) throw new apiError(401, "All details were necessary");
   
-    if (
-      [name, images, category, newPrice, oldPrice, size, ProductId].some(
-        (field) => field?.trim() === ""
-      )
-    ) {
-      throw new apiError(401, "All feilds are required");
-    }
-  
-    const createdOrder = await Order.create({
-      name,
-      images,
-      category,
-      newPrice,
-      oldPrice,
-      size,
-      stock,
-      ProductId
-    });
+    const createdOrder = await Order.create({user, orderItems});
+
     await createdOrder.save();
   
     return res
