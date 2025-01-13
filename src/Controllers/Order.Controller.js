@@ -10,6 +10,8 @@ const newOrder = asyncHandler(async (req, res) => {
   
     const createdOrder = await Order.create({user, orderItems});
 
+    if(!createdOrder) throw new apiError(401, "Something Went Wrong with order creation");
+
     await createdOrder.save();
   
     return res
