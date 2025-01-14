@@ -38,7 +38,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
     });
 
     res.redirect(
-      `https://nubifashon-backend.onrender.com/api/v1/payment/paymentVerification?refrence=${razorpay_payment_id}`
+      `https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`
     );
   } else {
     return res
