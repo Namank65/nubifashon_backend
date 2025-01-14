@@ -25,4 +25,20 @@ const newOrder = asyncHandler(async (req, res) => {
       );
   });
 
-  export {newOrder}
+const allOrder = asyncHandler(async (req, res) => {
+
+    const order = await Order.find({});
+    if(!order) throw new apiError(401, "Something Went Wrong While Getting All Orders ");
+  
+    return res
+      .status(200)
+      .json(
+        new apiResponse(
+          200,
+          order,
+          "Order Placed Successfully "
+        )
+      );
+  });
+
+  export {newOrder, allOrder};
