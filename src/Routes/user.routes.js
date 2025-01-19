@@ -6,7 +6,7 @@ import adminOnly from "../MiddleWare/Admin.middleware.js";
 const router = Router();
 
 router.route("/register").post( RegisterUser)
-router.route("/login").post(loginUser)
+router.route("/login/:id").post(loginUser)
 router.route("/all").get(adminOnly, allUsers)
 
 // Secured routes
