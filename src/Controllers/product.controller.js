@@ -32,7 +32,6 @@ const productUpload = asyncHandler(async (req, res) => {
 
 const addProduct = asyncHandler(async (req, res) => {
   let product = await Product.find({});
-  
   if (!Product) throw new apiError(400, "Couldn't Found The Product");
 
   let id;
@@ -183,7 +182,7 @@ const popularInWomen = asyncHandler(async (req, res) => {
 const addToCart = asyncHandler(async (req, res) => {
   const { size } = req.body;
   let userData = await User.findOne({ _id: req.user?._id });
-
+  
   if (!userData) throw new apiError(400, "Error in Fetching User Data");
   userData.cartData[req.body.itemId].quantity += 1;
 
@@ -192,10 +191,12 @@ const addToCart = asyncHandler(async (req, res) => {
     { _id: req.user._id },
     { cartData: userData.cartData }
   );
+const product = await Product.findOne({id: req.body.itemId})
+  product.size = size
 
   return res
     .status(200)
-    .json(new apiResponse(201, {}, "Product Added To The Cart Successfully"));
+    .json(new apiResponse(201, {product}, "Product Added To The Cart Successfully"));
 });
 
 const removeFromCart = asyncHandler(async (req, res) => {
