@@ -14,7 +14,7 @@ export const checkout = asyncHandler(async (req, res) => {
 
   return res
     .status(200)
-    .json(new apiResponse(201, order, "Payment Successfull"));
+    .json(new apiResponse(201, order, "Payment Created"));
 });
 
 export const paymentVerification = asyncHandler(async (req, res) => {

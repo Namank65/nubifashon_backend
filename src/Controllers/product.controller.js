@@ -191,12 +191,10 @@ const addToCart = asyncHandler(async (req, res) => {
     { _id: req.user._id },
     { cartData: userData.cartData }
   );
-const product = await Product.findOne({id: req.body.itemId})
-  product.size = size
-
+  
   return res
     .status(200)
-    .json(new apiResponse(201, {product}, "Product Added To The Cart Successfully"));
+    .json(new apiResponse(201, {}, "Product Added To The Cart Successfully"));
 });
 
 const removeFromCart = asyncHandler(async (req, res) => {
