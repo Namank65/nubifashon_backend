@@ -37,10 +37,9 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       razorpay_signature,
     });
 
-    res.redirect(
-      // `https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`
-      `https://nubifashon.web.app/paymentsuccess`
-    );
+    // res.redirect(`https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`);
+    res.json({ redirectUrl: `https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}` });
+
   } else {
     return res
       .status(400)
