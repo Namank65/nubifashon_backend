@@ -37,7 +37,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       razorpay_signature,
     });
 
-    res.redirect(`https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`);
+   return res.redirect(`https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`);
     // res.json({ redirectUrl: `https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}` });
 
   } else {
@@ -46,7 +46,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       .json(new apiError(401, {}, "OOPS Rezorpay Signature Did't Matched!"));
   }
 
-  return res.status(200);
+  // return res.status(200);
 });
 
 export const getRazorKey = asyncHandler(async (req, res) => {
