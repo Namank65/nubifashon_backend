@@ -37,7 +37,7 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       razorpay_signature,
     });
 
-   return res.redirect(`paymentsuccess?refrence=${razorpay_payment_id}`);
+   return res.redirect(`/paymentsuccess?refrence=${razorpay_payment_id}`);
 
   } else {
     return res
