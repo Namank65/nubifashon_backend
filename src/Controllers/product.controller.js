@@ -197,11 +197,12 @@ const addToCart = asyncHandler(async (req, res) => {
     .json(new apiResponse(201, {}, "Product Added To The Cart Successfully"));
 });
 
+
 const removeFromCart = asyncHandler(async (req, res) => {
   let userData = await User.findOne({ _id: req.user?._id });
-
+  
   if (!userData) throw new apiError(400, "Error in Fetching User Data");
-
+  
   if (userData.cartData[req.body.itemId].quantity === 1) {
     userData.cartData[req.body.itemId].quantity -= 1;
     userData.cartData[req.body.itemId].productSize = "";
@@ -209,17 +210,49 @@ const removeFromCart = asyncHandler(async (req, res) => {
     userData.cartData[req.body.itemId].quantity -= 1;
     userData.cartData[req.body.itemId].productSize
   }
+  
+  await User.findByIdAndUpdate(
+    { _id: req.user._id },
+    { cartData: userData.cartData }
+  );
+  
+  return res
+  .status(200)
+  .json(
+    new apiResponse(201, {}, "Product Removed From The Cart Successfully")
+  );
+});
+
+const addQuantity = asyncHandler(async (req, res) => {
+  let userData = await User.findOne({ _id: req.user?._id });
+  
+  if (!userData) throw new apiError(400, "Error in Fetching User Data");
+  userData.cartData[req.body.itemId].quantity += 1;
 
   await User.findByIdAndUpdate(
     { _id: req.user._id },
     { cartData: userData.cartData }
   );
-
+  
   return res
     .status(200)
-    .json(
-      new apiResponse(201, {}, "Product Removed From The Cart Successfully")
-    );
+    .json(new apiResponse(201, {}, "Product Quantity Changed Successfully"));
+});
+
+const removeQuantity = asyncHandler(async (req, res) => {
+  let userData = await User.findOne({ _id: req.user?._id });
+  
+  if (!userData) throw new apiError(400, "Error in Fetching User Data");
+  userData.cartData[req.body.itemId].quantity -= 1;
+
+  await User.findByIdAndUpdate(
+    { _id: req.user._id },
+    { cartData: userData.cartData }
+  );
+  
+  return res
+    .status(200)
+    .json(new apiResponse(201, {}, "Product Quantity Changed Successfully"));
 });
 
 const getCart = asyncHandler(async (req, res) => {
@@ -246,6 +279,8 @@ export {
   popularInWomen,
   addToCart,
   removeFromCart,
+  addQuantity,
+  removeQuantity,
   getCart,
   getLatestProduct,
   categories,

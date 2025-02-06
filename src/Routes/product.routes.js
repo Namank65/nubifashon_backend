@@ -11,7 +11,9 @@ import {
   removeProduct,
   getLatestProduct,
   categories,
-  getSingleProduct
+  getSingleProduct,
+  addQuantity,
+  removeQuantity,
 } from "../Controllers/product.controller.js";
 import { upload } from "../MiddleWare/Multer.middleWare.js";
 import productAuth from "../MiddleWare/productAuth.middleware.js";
@@ -29,6 +31,9 @@ router.route("/:id").get(getSingleProduct);
 
 router.route("/addProduct").post(addProduct);
 router.route("/removeProduct").delete(removeProduct);
+router.route("/addQuantity").post(addQuantity);
+router.route("/removeQuantity").post(removeQuantity);
+
 router.route("/removeFromCart").post(productAuth, removeFromCart);
 router.route("/getCart").post(productAuth, getCart);
 router.route("/addToCart").post(productAuth, addToCart);
