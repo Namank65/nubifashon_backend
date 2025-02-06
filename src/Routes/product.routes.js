@@ -31,8 +31,8 @@ router.route("/:id").get(getSingleProduct);
 
 router.route("/addProduct").post(addProduct);
 router.route("/removeProduct").delete(removeProduct);
-router.route("/addQuantity").post(addQuantity);
-router.route("/removeQuantity").post(removeQuantity);
+router.route("/addQuantity").post(productAuth, addQuantity);
+router.route("/removeQuantity").post(productAuth, removeQuantity);
 
 router.route("/removeFromCart").post(productAuth, removeFromCart);
 router.route("/getCart").post(productAuth, getCart);
