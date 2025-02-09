@@ -207,10 +207,6 @@ const removeFromCart = asyncHandler(async (req, res) => {
     userData.cartData[req.body.itemId].quantity = 0;
     userData.cartData[req.body.itemId].productSize = "";
   }
-  // else{
-  //   userData.cartData[req.body.itemId].quantity -= 1;
-  //   userData.cartData[req.body.itemId].productSize
-  // }
   
   await User.findByIdAndUpdate(
     { _id: req.user._id },
