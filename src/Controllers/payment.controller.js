@@ -4,6 +4,7 @@ import apiResponse from "../utils/apiResponce.js";
 import crypto from "crypto";
 import apiError from "../utils/apiError.js";
 import { Payment } from "../models/Payment.model.js";
+import { User } from "../models/User.model.js";
 
 export const checkout = asyncHandler(async (req, res) => {
   const options = {
@@ -39,6 +40,8 @@ export const paymentVerification = asyncHandler(async (req, res) => {
 
     let userData = await User.findOne({ _id: req.user?._id });
     if (!userData) throw new apiError(400, "Error in Fetching User Data");
+
+    console.log("i got the user", userData)
 
     for (let i = 0; i < userData.cartData.length; i++) {
       if (userData.cartData[i].quantity >= 1) {
