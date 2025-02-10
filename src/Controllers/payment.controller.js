@@ -41,14 +41,17 @@ export const paymentVerification = asyncHandler(async (req, res) => {
     let userData = await User.findOne({ _id: req.user?._id });
     if (!userData) throw new apiError(400, "Error in Fetching User Data");
 
-    console.log("i got the user", userData)
-
+    console.log("i got the user outside the loop", userData.cartData)
+    
     for (let i = 0; i < userData.cartData.length; i++) {
       if (userData.cartData[i].quantity >= 1) {
+        console.log("cartdata in for loop", userData.cartData[i])
         userData.cartData[i].quantity = 0;
         userData.cartData[i].productSize = "";
       }
     }
+
+    userData.save()
 
    return res.redirect(`https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`);
 
