@@ -44,7 +44,8 @@ export const paymentVerification = asyncHandler(async (req, res) => {
     console.log("i got the user outside the loop", userData.cartData)
     
     for (let i = 0; i < userData.cartData.length; i++) {
-      if (userData.cartData[i].quantity >= 1) {
+      console.log("i am in loop", userData.cartData[4])
+      if (userData.cartData[i].quantity > 0) {
         console.log("cartdata in for loop", userData.cartData[i])
         userData.cartData[i].quantity = 0;
         userData.cartData[i].productSize = "";
