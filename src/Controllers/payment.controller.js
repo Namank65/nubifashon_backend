@@ -37,6 +37,16 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       razorpay_signature,
     });
 
+    let userData = await User.findOne({ _id: req.user?._id });
+    if (!userData) throw new apiError(400, "Error in Fetching User Data");
+
+    for (let i = 0; i < userData.cartData.length; i++) {
+      if (userData.cartData[i].quantity >= 1) {
+        userData.cartData[i].quantity = 0;
+        userData.cartData[i].productSize = "";
+      }
+    }
+
    return res.redirect(`https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`);
 
   } else {
