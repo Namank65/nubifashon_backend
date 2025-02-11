@@ -52,7 +52,12 @@ export const paymentVerification = asyncHandler(async (req, res) => {
       }
     }
 
-    await userData.save()
+    // await userData.save()
+
+    await User.findByIdAndUpdate(
+      { _id: req.user._id },
+      { cartData: userData.cartData }
+    );
 
    return res.redirect(`https://nubifashon.web.app/paymentsuccess?refrence=${razorpay_payment_id}`);
 
