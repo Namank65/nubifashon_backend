@@ -41,18 +41,12 @@ export const paymentVerification = asyncHandler(async (req, res) => {
     let userData = await User.findOne({ _id: req.user?._id });
     if (!userData) throw new apiError(400, "Error in Fetching User Data");
 
-    console.log("i got the user outside the loop", userData.cartData[4])
-    
     for (const item in userData.cartData) {
-      console.log("i am in loop", userData.cartData[4])
       if (userData.cartData[item].quantity > 0) {
-        console.log("cartdata in for loop", userData.cartData[item])
         userData.cartData[item].quantity = 0;
         userData.cartData[item].productSize = "";
       }
     }
-
-    // await userData.save()
 
     await User.findByIdAndUpdate(
       { _id: req.user._id },
