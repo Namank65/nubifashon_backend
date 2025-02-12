@@ -20,7 +20,7 @@ const newOrder = asyncHandler(async (req, res) => {
         new apiResponse(
           200,
           createdOrder,
-          "Order Placed Successfully "
+          "Order Placed Successfully"
         )
       );
   });
