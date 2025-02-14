@@ -16,6 +16,7 @@ const OrderSchema = new Schema({
       avilable: String,
       size: String,
       stock: String,
+      quantity: Number,
       ProductId: {
         type: mongoose.Types.ObjectId,
         ref: "Product",

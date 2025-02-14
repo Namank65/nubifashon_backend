@@ -5,6 +5,8 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const newOrder = asyncHandler(async (req, res) => {
     const { user, orderItems } = req.body;
+    console.log(user, orderItems);
+    
 
     if(!user || !orderItems) throw new apiError(401, "All details were necessary");
   
