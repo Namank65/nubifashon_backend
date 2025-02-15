@@ -5,8 +5,6 @@ import asyncHandler from "../utils/asyncHandler.js";
 
 const newOrder = asyncHandler(async (req, res) => {
     const { user, orderItems } = req.body;
-    console.log(user, orderItems);
-    
 
     if(!user || !orderItems) throw new apiError(401, "All details were necessary");
   
@@ -27,7 +25,7 @@ const newOrder = asyncHandler(async (req, res) => {
       );
   });
 
-const allOrder = asyncHandler(async (req, res) => {
+const allOrders = asyncHandler(async (req, res) => {
 
     const order = await Order.find({});
     if(!order) throw new apiError(401, "Something Went Wrong While Getting All Orders ");
@@ -43,4 +41,4 @@ const allOrder = asyncHandler(async (req, res) => {
       );
   });
 
-  export {newOrder, allOrder};
+  export {newOrder, allOrders};
