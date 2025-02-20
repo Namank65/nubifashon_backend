@@ -6,6 +6,6 @@ const router = Router();
 
 router.route("/newOrder").post(productAuth, newOrder);
 router.route("/allOrders").get(allOrders);
-router.route("/removeOrder").delete(removeOrder);
+router.route("/removeOrder").post(removeOrder);
 
 export default router;
