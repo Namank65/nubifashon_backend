@@ -25,6 +25,21 @@ const newOrder = asyncHandler(async (req, res) => {
       );
   });
 
+  const removeOrder= asyncHandler(async (req, res) => {
+    await Order.findOneAndDelete({ id: req.body.id });
+    if (!Order) throw new apiError(400, "Couldn't Found The Order");
+    return res
+      .status(201)
+      .json(
+        new apiResponse(
+          200,
+          { name: req.body.name },
+          "Order Removed Successfully"
+        )
+      );
+  });
+  
+
 const allOrders = asyncHandler(async (req, res) => {
 
     const order = await Order.find({});
@@ -41,4 +56,4 @@ const allOrders = asyncHandler(async (req, res) => {
       );
   });
 
-  export {newOrder, allOrders};
+  export {newOrder, allOrders, removeOrder};
