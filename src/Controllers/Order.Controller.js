@@ -26,7 +26,7 @@ const newOrder = asyncHandler(async (req, res) => {
   });
 
   const removeOrder= asyncHandler(async (req, res) => {
-    await Order.findOneAndDelete({ id: req.body.id });
+    await Order.findOneAndDelete({ id: req.body._id });
     if (!Order) throw new apiError(400, "Couldn't Found The Order");
     return res
       .status(201)
