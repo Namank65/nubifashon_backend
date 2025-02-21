@@ -28,12 +28,15 @@ const newOrder = asyncHandler(async (req, res) => {
   const removeOrder= asyncHandler(async (req, res) => {
     const {ProductId} = req.body
     console.log(ProductId);
+
+    const productId = mongoose.Types.ObjectId(ProductId);
+const order = await Order.findOneAndDelete({ "orderItems.ProductId": productId });
     
-    const order = await Order.findOneAndDelete({ ProductId: ProductId});
+    // const order = await Order.findOneAndDelete({ ProductId: ProductId});
     if (!order) throw new apiError(400, "Couldn't Found The Order");
 
     await order.save()
-    
+
     return res
       .status(201)
       .json(
