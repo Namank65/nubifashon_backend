@@ -31,6 +31,7 @@ const newOrder = asyncHandler(async (req, res) => {
     // i have to continue from here for consistency
       // const || id in system for consistency
       // more code for consistency
+      // consistency for a reson
     // const objectId = new mongoose.Types.ObjectId(ProductId)
     
     // const order = await Order.findOneAndDelete({ ProductId: objectId});
