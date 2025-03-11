@@ -30,6 +30,7 @@ const newOrder = asyncHandler(async (req, res) => {
     const {_id} = req.body;
     // i have to continue from here for consistency
       // const || id in system for consistency
+      // last contribution for this trip
       // more code for consistency
       // consistency for a reson
     // const objectId = new mongoose.Types.ObjectId(ProductId)
