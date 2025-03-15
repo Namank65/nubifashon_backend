@@ -32,7 +32,7 @@ const newOrder = asyncHandler(async (req, res) => {
     
     // const objectId = new mongoose.Types.ObjectId(ProductId)
     
-    // const order = await Order.findOneAndDelete({ ProductId: objectId});
+    const order = await Order.findOneAndDelete({ ProductId: objectId});
     // const order = await Order.findOne({orderItems: {$elemMatch: {_id: new mongoose.Types.ObjectId('67bb747bd5eff42becd7e600')}}});
     // console.log(order);
     
