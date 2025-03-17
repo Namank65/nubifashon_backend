@@ -28,18 +28,9 @@ const newOrder = asyncHandler(async (req, res) => {
 
   const removeOrder= asyncHandler(async (req, res) => {
     const {_id} = req.body;
+    if(!_id) throw new apiError(401, "User Id Not Found");
     
-    // const objectId = new mongoose.Types.ObjectId(ProductId)
-    
-    const order = await Order.findOneAndDelete({ _id: _id });
-    
-    // const order = await Order.findOne({orderItems: {$elemMatch: {_id: new mongoose.Types.ObjectId('67bb747bd5eff42becd7e600')}}});
-    // console.log(order);
-    
-     //if (!order) throw new apiError(400, "Couldn't Found The Order");
-    
-
-    //  await order.save()
+    await Order.findOneAndDelete({ _id: _id });
     
     return res
       .status(201)
@@ -56,10 +47,7 @@ const newOrder = asyncHandler(async (req, res) => {
 const allOrders = asyncHandler(async (req, res) => {
 
     const order = await Order.find({}).populate('user', 'userName')
-    console.log(order);
-    
     if(!order) throw new apiError(401, "Something Went Wrong While Getting All Orders");
-  
     return res
       .status(200)
       .json(
