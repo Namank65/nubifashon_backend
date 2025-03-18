@@ -30,7 +30,7 @@ const newOrder = asyncHandler(async (req, res) => {
     const {_id} = req.body;
     if(!_id) throw new apiError(401, "User Id Not Found");
     
-    await Order.findOneAndDelete({ _id: _id });
+    await Order.findOneAndDelete({ _id });
     
     return res
       .status(201)
